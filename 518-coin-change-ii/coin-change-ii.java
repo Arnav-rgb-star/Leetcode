@@ -2,7 +2,6 @@ class Solution {
     int dp[][];
     int f(int n,int amt,int a[]){
         for(int i=0;i<=amt;i++) dp[0][i]=(i%a[0]==0)?1:0;
-
         for(int i=1;i<n;i++){
             for(int j=0;j<=amt;j++){
                 int take=0;
