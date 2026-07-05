@@ -1,20 +1,22 @@
 class Solution {
     int dp[][];
-    int f(int i,int amt,int a[]){
-        if(i==0){
-            if(amt%a[0]==0) return 1;
-            else return 0;
-        }
-        if(dp[i][amt]!=-1) return dp[i][amt];
-        int take=0;
-        int notTake=f(i-1,amt,a);
-        if(amt>=a[i]) take=f(i,amt-a[i],a);
+    int f(int n,int amt,int a[]){
+        for(int i=0;i<=amt;i++) dp[0][i]=(i%a[0]==0)?1:0;
 
-        return dp[i][amt] = (take+notTake);
+        for(int i=1;i<n;i++){
+            for(int j=0;j<=amt;j++){
+                int take=0;
+                if(j>=a[i]) take=dp[i][j-a[i]];
+                int notTake=dp[i-1][j];
+
+                dp[i][j]=take+notTake;
+            }
+        }
+        return dp[n-1][amt];
     }
     public int change(int amount, int[] coins) {
         dp=new int[coins.length][amount+1];
         for(int i=0;i<dp.length;i++) Arrays.fill(dp[i],-1);
-        return f(coins.length-1,amount,coins);
+        return f(coins.length,amount,coins);
     }
 }
