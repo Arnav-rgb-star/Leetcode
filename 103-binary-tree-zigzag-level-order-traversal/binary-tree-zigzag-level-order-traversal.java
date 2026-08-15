@@ -27,23 +27,14 @@ class Solution {
             int n = q.size();
             List<Integer> current = new ArrayList<>();
 
-            if(reverse==0){
-                for(int i=0;i<n;i++){
-                    TreeNode node = q.removeFirst();
+            for(int i=0;i<n;i++){
+                TreeNode node = q.removeFirst();
 
-                    current.add(node.val);
-                    if(node.left!=null) q.addLast(node.left);
-                    if(node.right!=null) q.addLast(node.right);
+                current.add(node.val);
+                if(node.left!=null) q.addLast(node.left);
+                if(node.right!=null) q.addLast(node.right);
                 }
-            }else{
-                for(int i=0;i<n;i++){
-                    TreeNode node = q.removeLast();
-
-                    current.add(node.val);
-                    if(node.right!=null) q.addFirst(node.right);
-                    if(node.left!=null) q.addFirst(node.left);
-                }
-            }
+            if(reverse==1) Collections.reverse(current);
             t.add(new ArrayList<>(current));
             reverse = 1-reverse;
         }
