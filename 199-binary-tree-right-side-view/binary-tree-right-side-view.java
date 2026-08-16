@@ -28,22 +28,13 @@ class Solution {
 
         while(!q.isEmpty()){
             int n = q.size();
-
             for(int i=0;i<n;i++){
                 TreeNode node = q.pop();
+                if(i== n-1) m.put(level,node.val);
+            
+                if(node.left!=null) q.offer(node.left);
 
-
-                if(i== n-1){
-                    m.put(level,node.val);
-                } 
-                if(node.left!=null){
-                    q.offer(node.left);
-                    
-                }
-                if(node.right!=null){
-                    q.offer(node.right);
-                    
-                }
+                if(node.right!=null) q.offer(node.right);     
             }
             ++level;
         }
