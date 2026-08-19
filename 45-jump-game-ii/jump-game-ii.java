@@ -1,21 +1,20 @@
 class Solution {
     int n;
     int dp[];
-    int f(int i,int a[]){
-        if(i>=(n-1)) return 0;
-        if(dp[i]!=-1) return dp[i];
+    int f(int a[]){
+        
+        for(int i=0;i<n;i++) dp[i]=n+1;
+        dp[n-1] = 0;
 
-        int min=n + 1;
-        for(int j=1;j<=a[i] && (i+j)<n ;j++) min=Math.min(min,1+f(i+j,a));
+        for(int i=n-1;i>=0;i--)
+        for(int j=1;j<=a[i] && (i+j)<n ;j++) dp[i]=Math.min(dp[i],1+dp[i+j]);
 
-        return dp[i] = min;
+        return dp[0];
 
     }
     public int jump(int[] nums) {
         n = nums.length;
         dp = new int[n];
-
-        for(int i=0;i<n;i++) dp[i]=-1;
-        return f(0,nums);
+        return f(nums);
     }
 }
