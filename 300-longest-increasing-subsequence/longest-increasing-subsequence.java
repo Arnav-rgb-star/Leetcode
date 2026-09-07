@@ -1,24 +1,21 @@
 class Solution {
     int dp[][];
 
-    int f(int i,int j,int a[]){
-        if(i==a.length) return 0;
-
-        if(dp[i][j+1]!=-1) return dp[i][j+1];
-
-        int take=0;
-        if(j==-1 || a[i]>a[j]) take = 1+f(i+1,i,a);
-        int notTake = f(i+1,j,a);
-
-        return dp[i][j+1] = Math.max(take,notTake);
-    }
     public int lengthOfLIS(int[] nums) {
         int n = nums.length;
 
-        dp = new int[n][n+1];
+        dp = new int[n+1][n+1];
         
-        for(int i=0;i<n;i++) Arrays.fill(dp[i],-1);
-        f(0,-1,nums);
+        for(int i=n-1;i>=0;i--){
+            for(int j=i-1;j>=-1;j--){
+
+                int take=0;
+                if(j==-1 || nums[i]>nums[j]) take = 1+dp[i+1][i+1];
+                int notTake = dp[i+1][j+1];
+
+                dp[i][j+1] = Math.max(take,notTake);
+            }
+        }
 
         return dp[0][0]; 
     }
