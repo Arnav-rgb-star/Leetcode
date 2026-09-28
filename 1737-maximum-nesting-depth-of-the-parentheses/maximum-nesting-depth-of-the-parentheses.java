@@ -1,12 +1,12 @@
 class Solution {
     public int maxDepth(String s) {
-        ArrayDeque<Character> stack = new ArrayDeque<>();
+        int cnt=0;
 
         int max=0;
         for(int i=0;i<s.length();i++){
-            if(s.charAt(i)=='(') stack.push(s.charAt(i));
-            max = Math.max(stack.size(),max);
-            if(s.charAt(i)==')') stack.pop();
+            if(s.charAt(i)=='(') ++cnt;
+            max = Math.max(cnt,max);
+            if(s.charAt(i)==')') --cnt;
         }
         return max;
     }
